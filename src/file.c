@@ -1,4 +1,4 @@
-#include <stdio.h>
+ #include <stdio.h>
 
 #include <unistd.h>
 #include <sys/types.h>
@@ -10,11 +10,23 @@
 
 
 int create_db_file(char *filename) {
-
+    int fd = open(filename, O_EXCL |O_RDWR | O_CREAT ,0644);
+    if (fd == -1){
+        perror("open");
+        return STATUS_ERROR;
+    }
+    return fd;
 }
 
 int open_db_file(char *filename) {
+    int fd = open(filename,O_RDWR);
+    if (fd == -1){
+        perror("open");
+        return STATUS_ERROR;
+    }
+    return fd;
 
 }
+
 
 
